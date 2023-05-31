@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    {% if tweets %}
+    <!-- Formulario para postear tweets -->
+    <form action="{{ url_for('tweet') }}" method="post" onsubmit="return validateForm()">
+        <textarea name="person" rows="4" cols="5" placeholder="Nombre"></textarea>
+        <textarea name="content" rows="4" cols="50" placeholder="Escribe tu tweet aquí"></textarea>
+        <br>
+        <input type="submit" value="Postear">
+    </form>
+
+    <hr>
+    {% endif %}
+
+    {% if not tweets %}
+    <!-- Formulario para postear tweets -->
+    <form action="{{ url_for('tweet') }}" method="post" onsubmit="return validateForm()">
+        <textarea name="person" rows="4" cols="5" placeholder="Nombre"></textarea>
+        <textarea name="content" rows="4" cols="50" placeholder="Escribe tu tweet aquí"></textarea>
+        <br>
+        <input type="submit" value="Postear">
+    </form>
+
+    <hr>
+    {% endif %}
+
+    {% for tweet in tweets %}
+    <div class="tweet">
+        <div class="tweet-header">
+            <strong>{{ tweet.person }}</strong>
+        </div>
+        <div class="tweet-content">
+            {{ tweet.content }}
+        </div>
+        
+        {% for reply in tweet.replies %}
+        <div class="reply">
+            <strong>Reply by {{ reply.person }}:</strong> {{ reply.content }}
+        </div>
+        {% endfor %}
+        
+        <div class="reply-form">            
+            <form action="{{ url_for('anstweet', tweet_id=tweet.id) }}" method="post">
+                <textarea name="person_reply" rows="2" cols="5" placeholder="Nombre"></textarea>
+                <textarea name="content_reply" rows="2" cols="50" placeholder="Escribe tu reply aquí"></textarea>
+                <br>
+                <input type="submit" value="Responder">
+            </form>
+        </div>
+        
+    </div>
+    <hr>
+    {% endfor %}
+
+    <script>
+        function validateForm() {
+            var personField = document.getElementsByName("person")[0];
+            var contentField = document.getElementsByName("content")[0];
+            
+            if (personField.value === "" || contentField.value === "") {
+                alert("Por favor, complete todos los campos");
+                return false;
+            }
+            
+            return true;
+        }        
+    </script>
+    
+
+</body>
+</html>
