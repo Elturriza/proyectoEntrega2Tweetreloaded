@@ -68,3 +68,8 @@ CREATE TABLE replies (
 1. Factory.- Lo cumplo al crear los objetos en service de tweet y reply
 2. Strategy.- Lo cumplo cuando llamo a la funcion create something para decidir si es un reply o tweet.
 3. Repository.- Lo cumplo al separar en layers la aplicacion 
+
+## Unit Test
+1. Dar click en Postear sin escribir en los campos de tweet.
+2. Dar click en Postear escribiendo en un solo campo y despues postear y luego escribir en ambos campos y postear.
+3. Dar click en responder y ver si se postea algo vacio(no deberia) y finalmente dar click en Responder una vez que se llenen ambos campos.
